@@ -1,0 +1,134 @@
+module sshd_config {
+  namespace "urn:ietf:params:xml:ns:yang:ssh:sshd_config";
+  prefix ss;
+
+  organization
+    "sysrepo.org";
+  description
+    "Yang module for sshd configuration";
+  contact
+    "antonio.paunovic@sartura.hr";
+
+  revision 2015-04-22 {
+    reference "https://github.com/sysrepo/yanger";
+  }
+
+  container sshd_config_options {
+
+    description
+      "Keywords from sshd_config BSD man page and their value types.";
+    reference
+      "BSD File Formats Manual, SSHD_CONFIG(5).";
+
+    leaf AddressFamily {
+        description
+	  "Specifies which address family should be used by sshd.";
+	type enumeration {
+	  enum "ipv4";
+	  enum "ipv6";
+	  enum "any";
+	}
+        default "any";
+    }
+
+    leaf AllowAgentForwarding {
+        description
+           "Specifies whether ssh-agent forwarding is permitted.";
+        type enumeration {
+             enum "yes";
+	     enum "no";
+        }
+        default "yes";
+    }
+    leaf-list AllowGroups {
+         description
+             "This keyword can be followed by a list of user name patterns,
+              separated by spaces.";
+         type string;
+    }
+    leaf-list AllowUsers {
+         description
+             "This keyword can be followed by a list of user name patterns,
+              separated by spaces.";
+         type string;
+    }
+    leaf AllowTcpForwarding {
+         description
+             "Specifies whether TCP forwarding is permitted.";
+         type enumeration {
+              enum "yes";
+              enum "no";
+              enum "local";
+              enum "remote";
+         }
+         default "yes";
+    }
+    leaf AuthorizedKeysCommand {
+         description
+             "Specifies a program to be used to look up the user's public
+	     keys.";
+         type string;
+    }
+    leaf AuthorizedKeysFile {
+         description
+             "Specifies the file that contains the public keys that can be
+	     used for user authentication.";
+         type string;
+    }
+    leaf ChallengeResponseAuthentication {
+         description
+             "Specifies whether challenge-response authentication is
+	     allowed (e.g. via PAM).";
+         type enumeration {
+              enum "yes";
+              enum "no";
+         }
+         default "yes";
+    }
+    leaf PrintMotd {
+          description
+             "Specifies whether sshd should print /etc/motd when a user logs in interactively.";
+	  type enumeration {
+               enum "yes";
+               enum "no";
+          }
+          default "yes";
+    }
+    leaf PermitEmptyPasswords {
+          description
+             "Specifies whether login password can be empty.";
+	  type enumeration {
+               enum "yes";
+               enum "no";
+          }
+          default "no";
+    }
+    leaf PermitRootLogin {
+          description
+             "Specifies whether root can log in using ssh(1).";
+	  type enumeration {
+               enum "yes";
+               enum "prohibit-password";
+               enum "without-password";
+               enum "no";
+          }
+          default "no";
+    }
+    leaf Subsystem {
+          description
+             "Configures an external subsystem (e.g. file transfer daemon).  Arguments should be a subsystem name and a command
+             (with optional arguments) to execute upon subsystem request.";
+          type string;
+	  when "../Protocol = 2";
+    }
+    leaf UsePAM {
+          description
+             "Enables the Pluggable Authentication Module interface.";
+	  type enumeration {
+               enum "yes";
+               enum "no";
+          }
+          default "no";
+    }
+  }
+}

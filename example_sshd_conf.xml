@@ -1,0 +1,11 @@
+<sshd_config_options xmlns="urn:ietf:params:xml:ns:yang:ssh:sshd_config">
+    <AllowUsers>goodguy</AllowUsers>
+    <AllowGroups>antonio docker</AllowGroups>
+    <AuthorizedKeysFile>.ssh/authorized_keys</AuthorizedKeysFile>
+    <ChallengeResponseAuthentication>no</ChallengeResponseAuthentication>
+    <UsePAM>yes</UsePAM>
+    <PrintMotd>no</PrintMotd>
+    <PermitRootLogin>no</PermitRootLogin>
+    <PermitEmptyPasswords>no</PermitEmptyPasswords>
+    <Subsystem>sftp /usr/lib/ssh/sftp-server</Subsystem>
+</sshd_config_options>
